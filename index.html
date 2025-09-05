@@ -3,65 +3,595 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Integrated Innovation Labs</title>
-    <link rel="stylesheet" href="style.css">
+    <title>2I-Labs - Integrated Innovation Labs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Modern Color Palette & Variables */
+        :root {
+            --primary-dark: #0A1628;
+            --primary-blue: #1E40AF;
+            --accent-cyan: #06B6D4;
+            --accent-emerald: #10B981;
+            --neutral-50: #F8FAFC;
+            --neutral-100: #F1F5F9;
+            --neutral-200: #E2E8F0;
+            --neutral-600: #475569;
+            --neutral-700: #334155;
+            --neutral-800: #1E293B;
+            --neutral-900: #0F172A;
+            --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-cyan) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent-emerald) 0%, var(--accent-cyan) 100%);
+            --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            background-color: white;
+            color: var(--neutral-700);
+            overflow-x: hidden;
+        }
+
+        /* Layout & Containers */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--neutral-200);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 16px 0;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--neutral-700);
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--neutral-50);
+            padding: 200px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0.05;
+            transform: skewX(-15deg) translateX(20%);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-family: var(--font-heading);
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--neutral-900);
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero-text .highlight {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--neutral-600);
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 48px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--neutral-600);
+            margin-top: 4px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-large);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Mission & Vision Section */
+        .mission-vision {
+            background: white;
+            position: relative;
+        }
+
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .mission-card, .vision-card {
+            padding: 48px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .vision-card {
+            background: var(--neutral-50);
+            border: 2px solid var(--neutral-200);
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .card-text {
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* Leadership Section */
+        .leadership {
+            background: var(--neutral-50);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--neutral-900);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: var(--neutral-600);
+            text-align: center;
+            margin-bottom: 80px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .leader-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            border: 1px solid var(--neutral-200);
+        }
+
+        .leader-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-large);
+        }
+
+        .leader-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .leader-info {
+            padding: 32px;
+        }
+
+        .leader-name {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--neutral-900);
+            margin-bottom: 8px;
+        }
+
+        .leader-title {
+            font-size: 16px;
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .leader-bio {
+            font-size: 15px;
+            color: var(--neutral-600);
+            line-height: 1.6;
+        }
+
+        /* Projects Section */
+        .projects {
+            background: white;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background: var(--neutral-50);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid var(--neutral-200);
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-cyan);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 32px;
+        }
+
+        .project-name {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--neutral-900);
+            margin-bottom: 12px;
+        }
+
+        .project-description {
+            font-size: 16px;
+            color: var(--neutral-600);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+        }
+
+        .contact .section-title {
+            color: white;
+        }
+
+        .contact .section-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--neutral-900);
+            color: var(--neutral-400);
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 40px;
+            }
+
+            .mission-vision-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            nav ul {
+                gap: 24px;
+            }
+
+            .projects-grid,
+            .leadership-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-
-    <header>
+    <header id="header">
         <div class="container">
-            <div class="logo">Integrated Innovation Labs</div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About 2I-Labs</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+            <div class="header-content">
+                <div class="logo">2I-Labs</div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#leadership">Leadership</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
 
     <main id="home">
         <section class="hero">
             <div class="container">
-                <h1>Connecting Technology and Innovation</h1>
-                <p class="subtitle">We focus on creating cutting-edge solutions and providing deep insights from complex data sets.</p>
-                <a href="#projects" class="button button-primary">Explore Our Projects</a>
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Transform <span class="highlight">Ambiguous Data</span> into Clear Intelligence</h1>
+                        <p class="hero-subtitle">2I-Labs helps organizations unify fragmented data into actionable intelligence—accelerating decisions and driving measurable growth.</p>
+                        <div style="display: flex; gap: 20px; align-items: center;">
+                            <a href="#projects" class="btn btn-primary">Explore Our Work</a>
+                            <a href="#contact" class="btn btn-secondary">Get Started</a>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <div class="stat-number">20+</div>
+                                <div class="stat-label">Years Experience</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">$310K+</div>
+                                <div class="stat-label">Capital Raised</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">100%</div>
+                                <div class="stat-label">Data-Driven</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <!-- Data visualization placeholder -->
+                        <div style="width: 100%; height: 400px; background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(30, 64, 175, 0.2);">
+                            <div style="text-align: center; color: var(--neutral-600);">
+                                <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+                                <div style="font-weight: 600;">Data Intelligence Visualization</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <div class="main-container">
-            <section id="about" class="content-section">
-                <h2>About 2I-Labs</h2>
-                <p>This is where you can write about 2I-Lab's unique identity. Focus on its mission, the specific problems it solves, and its vision for the future. 2I-Labs is dedicated to... </p>
-            </section>
-
-            <section id="projects" class="content-section">
-                <h2>Our Projects</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <img src="SiteAssets/Avern.jpg" alt="Avern AI Analytics Tool">
-                        <h3>Avern</h3>
-                        <p>An innovative and powerful AI analytics tool designed to provide deep insights from complex data sets.</p>
+        <section id="about" class="mission-vision section">
+            <div class="container">
+                <div class="mission-vision-grid">
+                    <div class="mission-card">
+                        <h3 class="card-title">Our Mission</h3>
+                        <p class="card-text">2I-Labs helps organizations unify ambiguous data into clear, actionable intelligence—accelerating decisions and driving measurable growth.</p>
                     </div>
-                    <div class="service-card">
-                        <img src="SiteAssets/ComingSoon.jpg" alt="Future Project Coming Soon">
-                        <h3>Future Project</h3>
-                        <p>Our next application is currently in development. Stay tuned for more exciting innovations from our team.</p>
+                    <div class="vision-card">
+                        <h3 class="card-title">Our Vision</h3>
+                        <p class="card-text">To be the leading innovator in transforming ambiguous and fragmented data into unified systems that power innovation and competitive advantage.</p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="contact" class="content-section">
-                <h2>Contact Us</h2>
-                <p>Ready to get started or have a question? We're here to help.</p>
-                <a href="mailto:Contact@integratedinnovationlabs.com" class="button">Get in Touch</a>
-            </section>
-        </div>
+        <section id="leadership" class="leadership section">
+            <div class="container">
+                <h2 class="section-title">Leadership Team</h2>
+                <p class="section-subtitle">Experienced leaders combining healthcare innovation, machine learning expertise, and entrepreneurial vision.</p>
+                
+                <div class="leadership-grid">
+                    <div class="leader-card">
+                        <img src="SiteAssets/jennifer.jpg" alt="Jennifer Yturriondobeitia" class="leader-image">
+                        <div class="leader-info">
+                            <h3 class="leader-name">Jennifer Yturriondobeitia</h3>
+                            <p class="leader-title">Chief Executive Officer, MSW, DBH</p>
+                            <p class="leader-bio">Healthcare integration expert with 20+ years in behavioral health systems. CEO of Cornerstone Whole Healthcare Organization and former Director of Behavioral Health Programs for Arete Provider Network. Doctorate in Behavioral Health from Arizona State University.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="leader-card">
+                        <img src="SiteAssets/morgan.jpg" alt="Morgan Dixon" class="leader-image">
+                        <div class="leader-info">
+                            <h3 class="leader-name">Morgan Dixon</h3>
+                            <p class="leader-title">Chief Technology Officer & Data Scientist</p>
+                            <p class="leader-bio">Award-winning entrepreneur and ML engineer with Masters in Machine Learning from CSU. Founded multiple companies, raised $310K+ in capital, and recognized as Kootenai County Top 30 Under 40 for two consecutive years. Specializes in AI analytics and automation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects section">
+            <div class="container">
+                <h2 class="section-title">Our Projects</h2>
+                <p class="section-subtitle">Innovative solutions that transform complex data into actionable intelligence.</p>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="SiteAssets/Avern.jpg" alt="Avern AI Analytics Tool" class="project-image">
+                        <div class="project-info">
+                            <h3 class="project-name">Avern</h3>
+                            <p class="project-description">An innovative and powerful AI analytics tool designed to provide deep insights from complex data sets. Transforms fragmented information into unified, actionable intelligence for strategic decision-making.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <img src="SiteAssets/ComingSoon.jpg" alt="Healthcare Analytics Platform" class="project-image">
+                        <div class="project-info">
+                            <h3 class="project-name">Healthcare Intelligence Platform</h3>
+                            <p class="project-description">Advanced behavioral healthcare analytics and automation system improving data pipelines from individual clinics to crisis hotlines. Currently in development with Cornerstone Whole Healthcare Organization.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact section">
+            <div class="container">
+                <h2 class="section-title">Ready to Transform Your Data?</h2>
+                <p class="section-subtitle">Let's discuss how 2I-Labs can help unify your data into clear, actionable intelligence.</p>
+                <a href="mailto:Contact@integratedinnovationlabs.com" class="btn btn-secondary" style="background: white; color: var(--primary-blue);">Get in Touch</a>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -70,6 +600,49 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Enhanced smooth scrolling and header effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('header');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Smooth scrolling for navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    
+                    if (targetId === '#home') {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                        return;
+                    }
+                    
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        const headerHeight = header.offsetHeight;
+                        const elementPosition = targetSection.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
